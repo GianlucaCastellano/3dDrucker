@@ -15,3 +15,7 @@ def loadQueue() -> List[dict]:
             return json.load(f)
         except json.JSONDecodeError:
             return []
+
+def saveQueue(queue: List[dict]):
+    with open(FILE_PATH, "w", encoding="utf-8") as f:
+        json.dump(queue, f, ensure_ascii=False, indent=4)
