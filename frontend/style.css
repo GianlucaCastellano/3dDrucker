@@ -1,0 +1,281 @@
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-tonal: #eef2ff;
+  --border: #e2e8f0;
+  --shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --radius-card: 16px;
+  --radius-elem: 8px;
+
+  /* Statusfarben */
+  --warten-bg: #fef9c3;
+  --warten-text: #854d0e;
+  --drucken-bg: #e0f2fe;
+  --drucken-text: #0369a1;
+  --fertig-bg: #dcfce7;
+  --fertig-text: #15803d;
+  --danger-text: #dc2626;
+  --danger-bg: #fef2f2;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  padding: 2.5rem 1rem;
+}
+
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.app-header h1 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.surface-card {
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Formular */
+.job-form {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 140px auto;
+  gap: 0.85rem;
+  align-items: end;
+}
+
+@media (max-width: 680px) {
+  .job-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.input-group label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.input-group input {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-elem);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background: #fdfdfd;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+/* Buttons */
+button {
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: var(--radius-elem);
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: #ffffff;
+  padding: 0.65rem 1.25rem;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-text {
+  background: transparent;
+  color: var(--primary);
+  padding: 0.4rem 0.75rem;
+}
+
+.btn-text:hover {
+  background: var(--primary-tonal);
+}
+
+.btn-tonal {
+  background: var(--primary-tonal);
+  color: var(--primary);
+  padding: 0.45rem 0.85rem;
+  font-size: 0.85rem;
+}
+
+.btn-tonal:hover {
+  background: #e0e7ff;
+}
+
+.btn-success {
+  background: var(--fertig-bg);
+  color: var(--fertig-text);
+}
+
+.btn-success:hover {
+  background: #bbf7d0;
+}
+
+.btn-icon-danger {
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 0.45rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+.btn-icon-danger:hover {
+  background: var(--danger-bg);
+  color: var(--danger-text);
+}
+
+/* Liste */
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.list-header .card-title {
+  margin-bottom: 0;
+}
+
+.queue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.job-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #ffffff;
+  gap: 1rem;
+}
+
+@media (max-width: 580px) {
+  .job-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .job-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+.job-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.job-id {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.job-file {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.job-details {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  display: flex;
+  gap: 0.5rem;
+}
+
+.job-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Status Chips */
+.chip {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  text-transform: capitalize;
+}
+
+.chip-warten {
+  background: var(--warten-bg);
+  color: var(--warten-text);
+}
+
+.chip-drucken {
+  background: var(--drucken-bg);
+  color: var(--drucken-text);
+}
+
+.chip-fertig {
+  background: var(--fertig-bg);
+  color: var(--fertig-text);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.error-text {
+  color: var(--danger-text);
+}

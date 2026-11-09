@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D-Drucker Warteschlange</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <main class="container">
+    <header class="app-header">
+      <h1>3D-Drucker Queue</h1>
+      <p class="subtitle">Aufträge verwalten nach dem First-In-First-Out-Prinzip</p>
+    </header>
+
+    <!-- Neuer Auftrag -->
+    <section class="surface-card">
+      <h2 class="card-title">Neuen Druck einreihen</h2>
+      <form id="jobForm" class="job-form">
+        <div class="input-group">
+          <label for="name">Dein Name</label>
+          <input type="text" id="name" placeholder="z. B. Lukas" required>
+        </div>
+
+        <div class="input-group">
+          <label for="fileName">Datei / Bauteil</label>
+          <input type="text" id="fileName" placeholder="z. B. gehaeuse_v2.stl" required>
+        </div>
+
+        <div class="input-group">
+          <label for="estimatedTime">Dauer (Minuten)</label>
+          <input type="number" id="estimatedTime" min="1" placeholder="120" required>
+        </div>
+
+        <button type="submit" class="btn-primary">Einreihen</button>
+      </form>
+    </section>
+
+    <!-- Warteschlange -->
+    <section class="surface-card">
+      <div class="list-header">
+        <h2 class="card-title">Aktuelle Warteschlange</h2>
+        <button id="refreshBtn" class="btn-text" type="button">Aktualisieren</button>
+      </div>
+
+      <div id="queueList" class="queue-list">
+        <div class="empty-state">Lade Warteschlange...</div>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>

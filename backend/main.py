@@ -43,12 +43,30 @@ def updateJobStatus(jobId: int, body: StatusUpdate):
         raise HTTPException(status_code=400, detail="Ungültiger Status")
 
     queue = loadQueue()
+
+    if body.status == "drucken":
+        for job in queue:
+            if job["status"] == "drucken" and job["id"] != jobId:
+                raise HTTPException(
+                    status_code=409,
+                    detail="Der Drucker ist bereits belegt!",
+                )
+        
+        waiting_jobs = [j for j in queue if j["status"] == "warten"]
+        if waiting_jobs:
+            first_waiting_id = waiting_jobs[0]["id"]
+            if jobId != first_waiting_id:
+                raise HTTPException(
+                    status_code=400,
+                    detail=" Es muss der älteste wartende Auftrag zuerst gedruckt werden",
+                )
+
     for job in queue:
         if job["id"] == jobId:
             job["status"] = body.status
             saveQueue(queue)
             return job
-    
+
     raise HTTPException(status_code=404, detail="Auftrag nicht gefunden")
 
 @app.delete("/jobs/{job_id}")
