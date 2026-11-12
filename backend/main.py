@@ -1,3 +1,4 @@
+import time
 from database import loadQueue, saveQueue
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,12 +14,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 class StatusUpdate(BaseModel):
     status: str
+
 
 @app.get("/jobs", response_model=list[PrintJob])
 def getQueue():
     return loadQueue()
+
 
 @app.post("/jobs", response_model=PrintJob, status_code=201)
 def createJob(job: PrintJobCreate):
@@ -30,12 +34,14 @@ def createJob(job: PrintJobCreate):
         "name": job.name,
         "fileName": job.fileName,
         "estimatedTime": job.estimatedTime,
-        "status": "warten"
+        "status": "warten",
+        "startedAt": None,
     }
 
     queue.append(newJob)
     saveQueue(queue)
     return newJob
+
 
 @app.patch("/jobs/{jobId}/status", response_model=PrintJob)
 def updateJobStatus(jobId: int, body: StatusUpdate):
@@ -48,34 +54,34 @@ def updateJobStatus(jobId: int, body: StatusUpdate):
         for job in queue:
             if job["status"] == "drucken" and job["id"] != jobId:
                 raise HTTPException(
-                    status_code=409,
-                    detail="Der Drucker ist bereits belegt!",
+                    status_code=409, detail="Der Drucker ist bereits belegt!"
                 )
-        
+
         waiting_jobs = [j for j in queue if j["status"] == "warten"]
-        if waiting_jobs:
-            first_waiting_id = waiting_jobs[0]["id"]
-            if jobId != first_waiting_id:
-                raise HTTPException(
-                    status_code=400,
-                    detail=" Es muss der älteste wartende Auftrag zuerst gedruckt werden",
-                )
+        if waiting_jobs and jobId != waiting_jobs[0]["id"]:
+            raise HTTPException(
+                status_code=400,
+                detail="FIFO-Regel: Erst den ältesten Auftrag drucken!",
+            )
 
     for job in queue:
         if job["id"] == jobId:
             job["status"] = body.status
+            if body.status == "drucken":
+                job["startedAt"] = time.time()  # Startzeitpunkt merken
             saveQueue(queue)
             return job
 
     raise HTTPException(status_code=404, detail="Auftrag nicht gefunden")
 
-@app.delete("/jobs/{job_id}")
+
+@app.delete("/jobs/{jobId}")
 def deleteJob(jobId: int):
     queue = loadQueue()
     filteredQueue = [j for j in queue if j["id"] != jobId]
 
     if len(filteredQueue) == len(queue):
         raise HTTPException(status_code=404, detail="Auftrag nicht gefunden")
-    
+
     saveQueue(filteredQueue)
     return {"message": f"Auftrag {jobId} wurde gelöscht"}

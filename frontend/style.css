@@ -11,7 +11,7 @@
   --radius-card: 16px;
   --radius-elem: 8px;
 
-  /* Statusfarben */
+
   --warten-bg: #fef9c3;
   --warten-text: #854d0e;
   --drucken-bg: #e0f2fe;
@@ -278,4 +278,10 @@ button {
 
 .error-text {
   color: var(--danger-text);
+}
+
+.progress-wrapper {
+  margin-top: 0.65rem;
+  width: 100%;
+  min-width: 240px;
 }
