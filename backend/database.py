@@ -5,7 +5,6 @@ from typing import List
 FILE_PATH = "queue.json"
 
 def loadQueue() -> List[dict]:
-    #Erstellt Datei falls sie nicht existiert und gibt Leeres Array zurück
     if not os.path.exists(FILE_PATH):
         saveQueue([])
         return []
