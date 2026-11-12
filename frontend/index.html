@@ -10,23 +10,19 @@
 <body>
 
   <main class="container">
-    <header class="app-header">
       <h1>3D-Drucker Queue</h1>
-      <p class="subtitle">Aufträge verwalten nach dem First-In-First-Out-Prinzip</p>
-    </header>
 
-    <!-- Neuer Auftrag -->
     <section class="surface-card">
       <h2 class="card-title">Neuen Druck einreihen</h2>
       <form id="jobForm" class="job-form">
         <div class="input-group">
           <label for="name">Dein Name</label>
-          <input type="text" id="name" placeholder="z. B. Lukas" required>
+          <input type="text" id="name" placeholder="Max Mustermann" required>
         </div>
 
         <div class="input-group">
           <label for="fileName">Datei / Bauteil</label>
-          <input type="text" id="fileName" placeholder="z. B. gehaeuse_v2.stl" required>
+          <input type="text" id="fileName" placeholder="model.stl" required>
         </div>
 
         <div class="input-group">
@@ -38,7 +34,6 @@
       </form>
     </section>
 
-    <!-- Warteschlange -->
     <section class="surface-card">
       <div class="list-header">
         <h2 class="card-title">Aktuelle Warteschlange</h2>

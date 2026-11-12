@@ -41,14 +41,11 @@ async function loadJobs() {
       }
 
       const progressHtml = job.status === "drucken" ? `
-        <div class="progress-wrapper">
-          <div class="progress-header">
-            <span>Druckt...</span>
-            <span id="timer-${job.id}">Berechne...</span>
-          </div>
+        <div class="progress-row">
           <div class="progress-track">
             <div class="progress-fill" id="bar-${job.id}"></div>
           </div>
+          <span class="progress-time" id="timer-${job.id}">00:00</span>
         </div>
       ` : "";
 
@@ -95,14 +92,14 @@ function updateTimers() {
       const remainingSeconds = Math.max(0, Math.ceil(totalSeconds - elapsedSeconds));
       const percent = Math.min(100, (elapsedSeconds / totalSeconds) * 100);
 
-      const timerEl = document.getElementById(`timer-${job.id}`);
       const barEl = document.getElementById(`bar-${job.id}`);
+      const timerEl = document.getElementById(`timer-${job.id}`);
 
-      if (timerEl && barEl) {
+      if (barEl && timerEl) {
+        barEl.style.width = `${percent}%`;
         const mins = Math.floor(remainingSeconds / 60);
         const secs = remainingSeconds % 60;
-        timerEl.textContent = `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")} verbleibend`;
-        barEl.style.width = `${percent}%`;
+        timerEl.textContent = `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
       }
 
       if (remainingSeconds <= 0 && !deletingIds.has(job.id)) {

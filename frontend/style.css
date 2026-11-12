@@ -285,3 +285,29 @@ button {
   width: 100%;
   min-width: 240px;
 }
+
+.progress-track {
+  margin-top: 0.75rem;
+  width: 25%;
+  height: 10px;
+  background-color: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--primary);
+  border-radius: 999px;
+  transition: width 1s linear;
+}
+
+.progress-time {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  min-width: 42px;
+  text-align: right;
+}
